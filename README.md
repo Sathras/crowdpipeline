@@ -4,7 +4,7 @@ A Crowd Simulation Research Project by
 - Brian Ricks, Ph.D.
 - Sasan Azizan, MS.
 - Alexander Fuchsberger, MA. MS.
-- David Lastname
+- David Beavers
 - Jon Lastname
 
 To clone this repository 
