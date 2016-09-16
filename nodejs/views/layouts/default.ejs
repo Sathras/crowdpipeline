@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title><%=typeof title == 'undefined' ? 'Crowd Simulation' : title%></title>
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <!-- Simplye Bootstrap CSS without further styling -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/importer.css">
+  <link rel="stylesheet" href="/styles/interface.css">
+  <!--STYLES END-->
+  </head>
+
+  <body>
+
+  <!--Only show navbar if user is logged in -->
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="<%= baseURL %>">Crowd Simulation</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="main-menu">
+
+        <!-- Menu -->
+        <ul class="nav navbar-nav">
+          <!-- Public Menu Items-->
+          <li><a href="/files">Files</a></li>
+
+          <!-- Login Required -->
+          <% if(typeof(user)!='undefined' && user) { %>
+          <li><a href="/file/upload">Upload</a></li>
+          <% } %>
+        </ul>
+
+        <!-- Logout Button -->
+        <ul class="nav navbar-nav pull-right">
+          <% if(typeof(user)!='undefined' && user) { %>
+            <li class=''>
+              <p class="navbar-btn navbar-right">
+                <a href="/logout" class="btn btn-default" title='Logout'>
+                  <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                </a>
+              </p>
+            </li>
+          <% } else { %>
+            <li class=''>
+              <p class="navbar-btn navbar-right">
+                <a href="/login" class="btn btn-primary" title='Login'>Login</a>
+              </p>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id='flash' class='container'>
+    <% var errors = req.flash('error'); %>
+    <% errors.forEach(function (error) { %>
+      <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <%= __(error) %>
+      </div>
+    <% }) %>
+
+    <% var messages = req.flash('message'); %>
+    <% messages.forEach(function (message) { %>
+      <div class="alert alert-info" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <%= __(message) %>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- CONTENT -->
+  <div class='container'><%- body %></div>
+
+  <!--TEMPLATES-->
+  
+  <!--TEMPLATES END-->
+
+
+  <!-- CDN Libraries -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.5.3/jquery.timeago.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <!-- JS SCRIPTS -->
+  <script src="/js/dependencies/sails.io.js"></script>
+  <script src="/js/default.js"></script>
+  </body>
+</html>

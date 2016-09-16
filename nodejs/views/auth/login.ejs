@@ -1,0 +1,24 @@
+<form class="form-signin" _lpchecked="1" action="/auth/local<%= next %>" method="post">
+  <h2 class="form-signin-heading">Please sign in</h2>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input type="text" id="inputEmail" class="form-control" name="identifier" placeholder="Username or Email" required="" autofocus=""  autocomplete="off">
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required="" autocomplete="off">
+  <!--<div class="checkbox">-->
+  <!--  <label>-->
+  <!--    <input type="checkbox" value="remember-me"> Remember me-->
+  <!--  </label>-->
+  <!--</div>-->
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+</form>
+
+<p class='text-center'>No account yet? <a href="/register" role="tab">Register here</a></p>
+
+
+<% if (Object.keys(providers).length) {%>
+  <h4>You can also use one of these...</h4>
+
+  <% Object.keys(providers).forEach(function (key) { %>
+    <a href="/auth/<%= providers[key].slug %>" role="button"><%= providers[key].name %></a>
+  <% }) %>
+<% } %>

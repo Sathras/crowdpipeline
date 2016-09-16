@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title><%=typeof title == 'undefined' ? 'Crowd Simulation' : title%></title>
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Simplye Bootstrap CSS without further styling -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/importer.css">
+  <link rel="stylesheet" href="/styles/interface.css">
+  <!--STYLES END-->
+
+  <!-- Making simulation objects available to client -->
+  <script type="text/javascript">
+    var config = <%- JSON.stringify(config) %>;
+    var sim = <%- JSON.stringify(sim) %>;
+  </script>
+
+  </head>
+
+  <body style="margin:0; padding:0;">
+
+  <!-- CONTENT -->
+  <%- body %>
+
+  <!--TEMPLATES-->
+  
+  <!--TEMPLATES END-->
+
+
+  <!-- CDN Libraries -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+  <!-- JS SCRIPTS -->
+  <script src="/js/dependencies/sails.io.js"></script>
+  <script src="/js/simulation.js"></script>
+  </body>
+</html>

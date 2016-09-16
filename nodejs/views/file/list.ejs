@@ -1,0 +1,28 @@
+<table id='files' class="table table-condensed">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Version</th>
+      <th>Size</th>
+      <th>Updated</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% _.each(files, function (file) { %>
+    <tr data-id='<%= file.id %>'>
+      <td><%= file.name %></td>
+      <td><%= file.version %></td>
+      <td><%= file.size %></td>
+      <td><time class="timeago" datetime="<%= file.updatedAt.toISOString() %>"></time></td>
+      <td>
+        <a href='/sim/render/<%= file.id %>' class='btn btn-success btn-xs'>Simulate</a>
+        <a href='<%= file.url %>' target='_blank' class='btn btn-primary btn-xs'>View</a>
+        <% if(req.user){ %>
+          <button class='delete-file btn btn-danger btn-xs' onClick='File.delete(<%= file.id %>)'>Delete</button>
+        <% } %>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

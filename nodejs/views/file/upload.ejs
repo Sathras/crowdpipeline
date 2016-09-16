@@ -1,0 +1,23 @@
+<!--UPLOAD TextFile -->
+<h1>Upload XML Simulation Files</h1>
+
+<div class='alert alert-info'>You can select and upload multiple files at a time</div>
+
+Upon clicking upload, the following happens:
+<ul>
+  <li>Files get uploaded to a directory <strong class='text-success'>DONE</strong></li>
+  <li>Files' content is validated and some information extracted <strong class='text-success'>DONE</strong></li>
+  <li>A database entry is created with a link to the file and metadata</li>
+</ul>
+
+<div class='alert alert-warning'>
+  The XML File must use the schema: <strong>TestCaseSchema.xsd</strong><br>
+  from <i>"xsi:schemaLocation": "http://www.magix.ucla.edu/steerbench</i>
+</div>
+
+<form action="/file/uploadFile" enctype="multipart/form-data" method="post">
+  <input type="file" class='btn btn-default' name="xml" multiple="multiple"><br>
+  <input type="submit" class='btn btn-primary' value="Upload">
+</form>
+
+
