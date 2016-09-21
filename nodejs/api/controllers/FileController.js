@@ -27,21 +27,6 @@ module.exports = {
     });
   },
 
-  // shows all uploaded files, if user is authentificated, allows to manage them
-  list: function (req, res){
-    File.find({}).exec(function(err, files){
-      if(err) req.flash('error', 'Error.LoadingFiles');
-      if(!files) req.flash('error', 'Error.NoFiles');
-
-      return res.view({ files: files });
-    });
-  },
-
-  // shows upload form
-  upload: function (req, res){
-    res.view();
-  },
-
   // uploads files, creates database entry and then deletes
 	uploadFile: function (req, res) {
     req.file('xml').upload({
@@ -104,4 +89,3 @@ module.exports = {
     });
   }
 };
-

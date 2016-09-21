@@ -11,7 +11,7 @@ module.exports = {
     * if GET parameter 'next' --> redirect to the url
     */
   start : function (req, res){
-    res.redirect('/files');
+    res.redirect('/simulations');
   },
 
   functions : function (req, res){

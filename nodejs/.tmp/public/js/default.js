@@ -47,6 +47,22 @@ var File = {
   }
 };
 
-$(document).ready(function() {
-  $('time').timeago();
+$('table').DataTable({
+  "order": [[ 1, "desc" ]],
+  "columnDefs": [
+    { "orderable": false, "targets": [2,3,4] },
+    { "searchable": false, "targets": [1,2,3,4] }
+  ]
 });
+
+$('time').timeago();
+
+var SIM = {
+  delete : function (event){
+    // if not confirmed just ignore request
+    var confirmed = window.confirm("Do you really want to delete this simulation with all attachments?");
+    if(!confirmed) return event.preventDefault();
+    // otherwise it automatically redirects to delete url
+  }
+}
+

@@ -32,12 +32,9 @@ module.exports.policies = {
     'functions': ['passport', 'sessionAuth'],
   },
 
- 'file': {
-    'list' : ['passport'],
-  },
-
  'sim': {
     'render' : ['passport'],
+    'list' : ['passport'],
   },
 
  'auth': {

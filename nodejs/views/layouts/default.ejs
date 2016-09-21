@@ -8,9 +8,7 @@
 
 
   <!-- Simplye Bootstrap CSS without further styling -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.6/jq-2.2.3/dt-1.10.12/datatables.min.css"/>
   <!--STYLES-->
   <link rel="stylesheet" href="/styles/importer.css">
   <link rel="stylesheet" href="/styles/interface.css">
@@ -31,7 +29,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<%= baseURL %>">Crowd Simulation</a>
+        <a class="navbar-brand" href="<%= req.baseURL %>">Crowd Simulation</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -40,12 +38,13 @@
         <!-- Menu -->
         <ul class="nav navbar-nav">
           <!-- Public Menu Items-->
-          <li><a href="/files">Files</a></li>
-
-          <!-- Login Required -->
-          <% if(typeof(user)!='undefined' && user) { %>
-          <li><a href="/file/upload">Upload</a></li>
-          <% } %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Simulations <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/simulations"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> List Simulations</a></li>
+              <li><a href="/sim/add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Simulation</a></li>
+            </ul>
+          </li>
         </ul>
 
         <!-- Logout Button -->
@@ -101,10 +100,8 @@
 
 
   <!-- CDN Libraries -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.6/jq-2.2.3/dt-1.10.12/datatables.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.5.3/jquery.timeago.min.js"></script>
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
   <!-- JS SCRIPTS -->
   <script src="/js/dependencies/sails.io.js"></script>
   <script src="/js/default.js"></script>

@@ -1,0 +1,77 @@
+<table id='simulations' class="table table-condensed">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Updated</th>
+      <th>Files</th>
+      <th>Videos</th>
+      <th>Render</th>
+      <% if(req.user){ %><th>Manage</th><% } %>
+    </tr>
+  </thead>
+  <tbody>
+    <% _.each(simulations, function (sim) { %>
+    <tr data-id='<%= sim.id %>'>
+      <td><%= sim.name %></td>
+      <td><time class="timeago" datetime="<%= sim.updatedAt.toISOString() %>"></time></td>
+      <td>
+        <% if(sim.file_source) { %>
+          <a class='btn btn-default active btn-xs' href='<%= sim.file_source %>'>Source</a>
+        <% } else { %>
+          <a class='btn btn-default disabled btn-xs'>Source</a>
+        <% }  %>
+
+        <a class='btn btn-default disabled btn-xs' href='#'>XML Base</a>
+        <a class='btn btn-default disabled btn-xs' href='#'>XML Real</a>
+        <a class='btn btn-default disabled btn-xs' href='#'>Output</a>
+      </td>
+      <td>
+        <a class='btn btn-danger disabled btn-xs' href='#'>
+          <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+          Real
+        </a>
+        <a class='btn btn-danger disabled btn-xs' href='#'>
+          <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+          Sim
+        </a>
+        <a class='btn btn-danger disabled btn-xs' href='#'>
+          <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+          Merged
+        </a>
+        <a class='btn btn-danger disabled btn-xs' href='#'>
+          <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+          Original</a>
+      </td>
+
+      <td>
+        <a class='btn btn-primary disabled btn-xs' href='#'>
+          <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Real
+          </a>
+        <a class='btn btn-primary disabled btn-xs' href='#'>
+          <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Sim
+        </a>
+        <a class='btn btn-primary disabled btn-xs' href='#'>
+          <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Merged
+        </a>
+      </td>
+
+      <% if(req.user){ %>
+      <td>
+        <a class='btn btn-default active btn-xs' href='/sim/edit/<%= sim.id %>' >
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+        </a>
+        <a class='btn btn-default active btn-xs' href='/sim/destroy/<%= sim.id %>' onClick="SIM.delete(event)">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove
+        </a>
+      </td>
+      <% } %>
+        <!--<a href='/sim/render/< %= file.id %>' class='btn btn-success btn-xs'>Simulate</a>-->
+        <!--<a href='< %= file.url %>' target='_blank' class='btn btn-primary btn-xs'>View</a>-->
+        <!--< % if(req.user){ %>-->
+        <!--  <button class='delete-file btn btn-danger btn-xs' onClick='File.delete(< %= file.id %>)'>Delete</button>-->
+        <!--< % } %>-->
+
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

@@ -23,7 +23,7 @@
 module.exports.routes = {
 
   'GET /': 'PageController.start',
-  'GET /files': 'FileController.list',
+  'GET /simulations': 'SimController.list',
 
   // AUTHENTIFICATION
   'get /login': 'AuthController.login',
