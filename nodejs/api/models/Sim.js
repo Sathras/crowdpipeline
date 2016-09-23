@@ -6,7 +6,7 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
-
+const fs = require('fs');
 
 module.exports = {
 
@@ -20,6 +20,17 @@ module.exports = {
     vurl_real     : { type: 'string', defaultsTo: '' }, // video link to unity renderer output (real)
     vurl_sim      : { type: 'string', defaultsTo: '' }, // video link to unity renderer output (sim)
     vurl_merged   : { type: 'string', defaultsTo: '' }, // video link to pairing algorithm output (merged)
+  },
+
+  deleteFile : function (filepath){
+
+    // if there is no file, don't do anything
+    if(filepath == '') return false;
+
+    // get correct path and delete file
+    var filepath = require('path').resolve(sails.config.appPath, './assets/'+filepath)
+    sails.log(filepath)
+    // fs.unlinkSync(filepath);
   },
 
   uploadFile : function (type, file, simID){

@@ -67,7 +67,6 @@ module.exports = {
       req.flash('error', 'Error.MissingInput.ID');
       res.redirect('/simulations');
     }
-    console.log(req.param('id'))
 
     // attempt to delete entry
     Sim.destroy(req.param('id')).exec(function(err, sim){
@@ -75,6 +74,15 @@ module.exports = {
         req.flash('error', err);
         res.redirect('/simulations');
       }
+      console.log(sim)
+      console.log(sim.file_source)
+
+      // delete associated files synchroniously
+      Sim.deleteFile(sim.file_source);
+      Sim.deleteFile(sim.file_xml_base);
+      Sim.deleteFile(sim.file_xml_sim);
+      Sim.deleteFile(sim.file_output);
+
       req.flash('message', "Simulation was successfully deleted.");
       res.redirect('/simulations');
     });
@@ -93,7 +101,7 @@ module.exports = {
         res.redirect('/simulations');
       }
 
-      sim.action = '/sim/edit/'+sim.id;
+      sim.action = '/sim/update/'+sim.id;
 
       // view modified add form and include variables
       res.view('sim/add', { sim:sim });
@@ -144,6 +152,13 @@ module.exports = {
         sim    : content
       });
 	  });
+	},
+
+	update : function (req, res){
+
+	  console.log(req.allParams());
+
+	  res.redirect('/simulations');
 	}
 
 };
