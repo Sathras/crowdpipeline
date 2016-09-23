@@ -14,16 +14,17 @@ module.exports = {
 
   // show form to create a new simulation
   add: function (req, res){
-    res.view({edit : false, sim:{
-    name          : '',
-    file_source   : '',
-    file_xml_base : '',
-    file_xml_sim  : '',
-    file_output   : '',
-    vurl_original : '',
-    vurl_real     : '',
-    vurl_sim      : '',
-    vurl_merged   : '',
+    res.view({ sim:{
+      action        : '/sim/create',
+      name          : '',
+      file_source   : '',
+      file_xml_base : '',
+      file_xml_sim  : '',
+      file_output   : '',
+      vurl_original : '',
+      vurl_real     : '',
+      vurl_sim      : '',
+      vurl_merged   : '',
     }});
   },
 
@@ -92,8 +93,10 @@ module.exports = {
         res.redirect('/simulations');
       }
 
+      sim.action = '/sim/edit/'+sim.id;
+
       // view modified add form and include variables
-      res.view('sim/add', {edit : true, sim:sim });
+      res.view('sim/add', { sim:sim });
     });
   },
 

@@ -1,9 +1,7 @@
 <!--UPLOAD TextFile -->
 <h1>Create a new Simulation</h1>
 
-<form id="search" action="/sim/<% if (edit) {%>update<% } else { %>create<% } %>/<%= sim.id %>"
-  enctype="multipart/form-data" method="post">
-
+<form id="search" action="<%= sim.action %>" enctype="multipart/form-data" method="post">
 
   <div class="row">
 
@@ -16,7 +14,7 @@
 
       <div class="form-group">
         <label for="inpFileSource">Source File</label>
-        <% if (edit && sim.file_source != '') {%>
+        <% if (sim.file_source != '') { %>
           <p class="text-danger">A file is aready here. Uploading another one will replace it.</p>
         <% } %>
         <input type="file" id='inpFileSource' name="source">
@@ -24,7 +22,7 @@
 
       <div class="form-group">
         <label for="inpFileXMLBase">XML Base File</label>
-        <% if (edit && sim.file_xml_base != '') {%>
+        <% if (sim.file_xml_base != '') {%>
           <p class="text-danger">A file is aready here. Uploading another one will replace it.</p>
         <% } %>
         <input type="file" id='inpFileXMLBase' name="xmlbase">
@@ -32,7 +30,7 @@
 
       <div class="form-group">
         <label for="inpFileXMLSim">XML Real File</label>
-        <% if (edit && sim.file_xml_sim != '') {%>
+        <% if (sim.file_xml_sim != '') {%>
           <p class="text-danger">A file is aready here. Uploading another one will replace it.</p>
         <% } %>
         <input type="file" id='inpFileXMLSim' name="xmlsim">
@@ -40,7 +38,7 @@
 
       <div class="form-group">
         <label for="inpFileOutput">Output File</label>
-        <% if (edit && sim.file_output != '') {%>
+        <% if (sim.file_output != '') {%>
           <p class="text-danger">A file is aready here. Uploading another one will replace it.</p>
         <% } %>
         <input type="file" id='inpFileOutput' name="output">
