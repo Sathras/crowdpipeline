@@ -5,19 +5,38 @@ A Crowd Simulation Research Project by
 - Sasan Azizan, MS.
 - Alexander Fuchsberger, MA. MS.
 - David Beavers
-<<<<<<< Updated upstream
-- Jon Lastname
-=======
 - Jon Hale
->>>>>>> Stashed changes
 
-To clone this repository 
-```https://github.com/Sathras/crowdpipeline.git```
+To clone this repository and allow pulling / pushing
+1. Ensure you have been granted contributor status in https://github.com/Sathras/crowdpipeline
+2. go to an empty folder where you want to have the entire pipeline integrated
+```
+git config --global user.name "Your Name Here"
+git config --global user.email "your_email@example.com"
+git init
+git remote add origin git@github.com:Sathras/crowdpipeline.git
+```
 
-<<<<<<< Updated upstream
-This is a test
-=======
+Everytime you start working
+```git pull```
 
-How to set up and connect Cloud9 / Github 
-http://lepidllama.net/blog/how-to-push-an-existing-cloud9-project-to-github/
->>>>>>> Stashed changes
+Never work in master branch always work in your own branch
+e.g. plattform, steersuite+
+
+To create a new branch and switch to it:
+```git checkout -b branchname```
+
+To switch to an existing branch
+```git checkout branchname```
+
+To upload/commit file changes to the branch
+```
+git add .
+git commit -m "Description of what you did"
+git push
+```
+
+Thats all we can merge code from branches into master via
+the github website.
+
+Thanks!
