@@ -74,14 +74,12 @@ module.exports = {
         req.flash('error', err);
         res.redirect('/simulations');
       }
-      console.log(sim)
-      console.log(sim.file_source)
 
       // delete associated files synchroniously
-      Sim.deleteFile(sim.file_source);
-      Sim.deleteFile(sim.file_xml_base);
-      Sim.deleteFile(sim.file_xml_sim);
-      Sim.deleteFile(sim.file_output);
+      Sim.deleteFile(sim[0].file_source);
+      Sim.deleteFile(sim[0].file_xml_base);
+      Sim.deleteFile(sim[0].file_xml_sim);
+      Sim.deleteFile(sim[0].file_output);
 
       req.flash('message', "Simulation was successfully deleted.");
       res.redirect('/simulations');

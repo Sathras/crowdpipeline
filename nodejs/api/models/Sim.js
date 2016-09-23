@@ -29,8 +29,7 @@ module.exports = {
 
     // get correct path and delete file
     var filepath = require('path').resolve(sails.config.appPath, './assets/'+filepath)
-    sails.log(filepath)
-    // fs.unlinkSync(filepath);
+    fs.unlinkSync(filepath);
   },
 
   uploadFile : function (type, file, simID){
