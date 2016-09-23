@@ -25,7 +25,7 @@ module.exports = {
   uploadFile : function (type, file, simID){
 
     file.upload({
-      dirname: require('path').resolve(sails.config.appPath, '.assets/data/'+type)
+      dirname: require('path').resolve(sails.config.appPath, './assets/data/'+type)
     }, function (err, file) {
 
       if (err || typeof(file[0]) == 'undefined') return false;
