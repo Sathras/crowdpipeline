@@ -134,14 +134,14 @@ module.exports = {
 	    // error handling
       if(err) req.flash('error', 'Error.LoadingFiles');
       if(!file) req.flash('error', 'Error.NoSimulation');
-      if(err || !file) return res.redirect('/files');
+      if(err || !file) return res.redirect('/simulations');
 
       // get file content
       var xml = fs.readFileSync('/home/ubuntu/workspace/assets/'+file.url,
         'utf8', function (err, xml) {
         if (err) {
           req.flash('error', 'Error.SimulationReadError');
-          return res.redirect('/files');
+          return res.redirect('/simulations');
         }
       });
 
@@ -158,9 +158,45 @@ module.exports = {
 
 	update : function (req, res){
 
-	  console.log(req.allParams());
+	  // get original simulation data
+	  Sim.findOne(req.param('id')).exec(function (err, sim_old){
 
-	  res.redirect('/simulations');
+	    if(err || !sim_old){
+        req.flash('error', 'Error.SimulationReadError');
+        return res.redirect('/simulations');
+      }
+
+  	  // check all parameters
+  	  var sim = {};
+  	  sim.name = req.param('name');
+  	  sim.vurl_original = req.param('videooriginal');
+  	  sim.vurl_real = req.param('videoreal');
+  	  sim.vurl_sim = req.param('videosim');
+  	  sim.vurl_merged = req.param('videomerged');
+
+  	  // check for new file uploads if found delete old file
+      if(req.param('source') != '') Sim.deleteFile(sim_old.file_source);
+      if(req.param('xmlbase')!= '') Sim.deleteFile(sim_old.file_xml_base);
+      if(req.param('xmlsim') != '') Sim.deleteFile(sim_old.file_xml_sim);
+      if(req.param('output') != '') Sim.deleteFile(sim_old.file_output);
+
+      // modify database entry with the string data
+      Sim.update(sim_old.id, sim).exec(function(err, sim){
+
+        if(err){
+          req.flash('error', 'Error.SimulationModifyError');
+          return res.redirect('/simulations');
+        }
+
+        // attempt to upload new files
+        if(req.param('source') != '') Sim.uploadFile('source',  req.file('source'),  sim.id);
+        if(req.param('xmlbase') != '') Sim.uploadFile('xmlbase', req.file('xmlbase'), sim.id);
+        if(req.param('xmlsim') != '') Sim.uploadFile('xmlsim',  req.file('xmlsim'),  sim.id);
+        if(req.param('output') != '') Sim.uploadFile('output',  req.file('output'),  sim.id);
+
+        res.redirect('/simulations');
+      });
+	  });
 	}
 
 };
