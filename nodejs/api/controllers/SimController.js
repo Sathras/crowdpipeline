@@ -113,6 +113,10 @@ module.exports = {
       if(err) req.flash('error', 'Error.LoadingFiles');
       if(!sims) req.flash('error', 'Error.NoFiles');
 
+      for(var i in sims){
+        sims[i] = Sim.getLinks(sims[i]);
+      }
+
       return res.view({ simulations: sims });
     });
   },
