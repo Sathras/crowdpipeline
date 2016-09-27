@@ -22,6 +22,29 @@ module.exports = {
     vurl_merged   : { type: 'string', defaultsTo: '' }, // video link to pairing algorithm output (merged)
   },
 
+  // get links for list view
+  getLinks : function (sims){
+
+    function processFiles(text, link, style){
+      if(link != '') return "<a target='_blank' class='btn "+style+" btn-xs active' href='"
+        + link + "'>" + text + "</a>";
+      else return "<a target='_blank' class='btn "+style+" btn-xs disabled'>"
+        + text + "</a>";
+    }
+
+    // File links
+    sims.url_file_source = processFiles('Source', sims.file_source, 'btn-default');
+    sims.url_file_xml_base = processFiles('XML Base', sims.file_xml_base, 'btn-default');
+    sims.url_file_xml_sim = processFiles('XML Sim', sims.file_xml_sim, 'btn-default');
+    sims.url_file_output = processFiles('Output', sims.file_output, 'btn-default');
+    // Video links
+    sims.url_video_real = processFiles('Real', sims.vurl_real, 'btn-danger');
+    sims.url_video_sim = processFiles('Sim', sims.vurl_sim, 'btn-danger');
+    sims.url_video_merged = processFiles('Merged', sims.vurl_merged, 'btn-danger');
+    sims.url_video_original = processFiles('Original', sims.vurl_original, 'btn-danger');
+    return sims;
+  },
+
   deleteFile : function (filepath){
 
     // if there is no file, don't do anything

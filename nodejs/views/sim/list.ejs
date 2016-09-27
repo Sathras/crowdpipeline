@@ -15,32 +15,18 @@
       <td><%= sim.name %></td>
       <td><time class="timeago" datetime="<%= sim.updatedAt.toISOString() %>"></time></td>
       <td>
-        <% if(sim.file_source) { %>
-          <a class='btn btn-default active btn-xs' href='<%= sim.file_source %>'>Source</a>
-        <% } else { %>
-          <a class='btn btn-default disabled btn-xs'>Source</a>
-        <% }  %>
-
-        <a class='btn btn-default disabled btn-xs' href='#'>XML Base</a>
-        <a class='btn btn-default disabled btn-xs' href='#'>XML Real</a>
-        <a class='btn btn-default disabled btn-xs' href='#'>Output</a>
+        <!-- File links -->
+        <%- sim.url_file_source %>
+        <%- sim.url_file_xml_base %>
+        <%- sim.url_file_xml_sim %>
+        <%- sim.url_file_output %>
       </td>
       <td>
-        <a class='btn btn-danger disabled btn-xs' href='#'>
-          <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-          Real
-        </a>
-        <a class='btn btn-danger disabled btn-xs' href='#'>
-          <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-          Sim
-        </a>
-        <a class='btn btn-danger disabled btn-xs' href='#'>
-          <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-          Merged
-        </a>
-        <a class='btn btn-danger disabled btn-xs' href='#'>
-          <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-          Original</a>
+        <!-- Video Links-->
+        <%- sim.url_video_real %>
+        <%- sim.url_video_sim %>
+        <%- sim.url_video_merged %>
+        <%- sim.url_video_original %>
       </td>
 
       <td>
