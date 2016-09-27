@@ -33,4 +33,12 @@ module.exports.connections = {
     database: 'c9'
   },
 
+  openshift : {
+    adapter: 'sails-mysql',
+    host: 'localhost',
+    user: 'adminxlZHUTy',
+    password: 'tHlfTjK1w7Pf',
+    database: 'sim'
+  }
+
 };
