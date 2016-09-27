@@ -25,23 +25,30 @@ module.exports = {
   // get links for list view
   getLinks : function (sims){
 
-    function processFiles(text, link, style){
-      if(link != '') return "<a target='_blank' class='btn "+style+" btn-xs active' href='"
+    function processFiles(text, link){
+      if(link != '') return "<a target='_blank' class='btn btn-default btn-xs active' data-toggle='lightbox' href='"
         + link + "'>" + text + "</a>";
-      else return "<a target='_blank' class='btn "+style+" btn-xs disabled'>"
+      else return "<a target='_blank' class='btn btn-default btn-xs disabled'>"
         + text + "</a>";
     }
 
+    function processVideos(text, link){
+      if(link != '') return "<a title='"+text+" video of simulation' "
+        + "class='btn btn-danger btn-xs active' data-toggle='lightbox' href='"
+        + link + "'>" + text + "</a>";
+      else return "<a class='btn btn-danger btn-xs disabled'>" + text + "</a>";
+    }
+
     // File links
-    sims.url_file_source = processFiles('Source', sims.file_source, 'btn-default');
-    sims.url_file_xml_base = processFiles('XML Base', sims.file_xml_base, 'btn-default');
-    sims.url_file_xml_sim = processFiles('XML Sim', sims.file_xml_sim, 'btn-default');
-    sims.url_file_output = processFiles('Output', sims.file_output, 'btn-default');
+    sims.url_file_source    = processFiles('Source', sims.file_source);
+    sims.url_file_xml_base  = processFiles('XML Base', sims.file_xml_base);
+    sims.url_file_xml_sim   = processFiles('XML Sim', sims.file_xml_sim);
+    sims.url_file_output    = processFiles('Output', sims.file_output);
     // Video links
-    sims.url_video_real = processFiles('Real', sims.vurl_real, 'btn-danger');
-    sims.url_video_sim = processFiles('Sim', sims.vurl_sim, 'btn-danger');
-    sims.url_video_merged = processFiles('Merged', sims.vurl_merged, 'btn-danger');
-    sims.url_video_original = processFiles('Original', sims.vurl_original, 'btn-danger');
+    sims.url_video_real     = processVideos('Real', sims.vurl_real);
+    sims.url_video_sim      = processVideos('Sim', sims.vurl_sim);
+    sims.url_video_merged   = processVideos('Merged', sims.vurl_merged);
+    sims.url_video_original = processVideos('Original', sims.vurl_original);
     return sims;
   },
 
