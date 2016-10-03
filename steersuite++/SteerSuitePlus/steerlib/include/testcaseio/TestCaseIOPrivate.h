@@ -48,6 +48,8 @@ namespace SteerLib {
 		Util::AxisAlignedBox worldBounds;
 		/// For now, just a human-readable string describing the passing criteria; eventually will be more elaborate.
 		std::string passingCriteria;
+		/// Scale factor for the test case
+		float scale;
 	};
 
 	/// Temporary agent information used by the TestCaseReader internally during parsing and initialization.
