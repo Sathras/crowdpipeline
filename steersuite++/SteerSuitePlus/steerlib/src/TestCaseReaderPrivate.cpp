@@ -316,9 +316,20 @@ void TestCaseReaderPrivate::_parseHeader(const ticpp::Element * subRoot)
 		else if (childTagName == "passingCriteria") {
 			child->GetText(&_header.passingCriteria);
 		}
+		else if (childTagName == "scale") {
+			child->GetText(&_header.scale);
+		}
 		else {
 			throw GenericException("Unexpected tag <" + childTagName + "> found on line " + toString(child->Row()) + "\n");
 		}
+
+		// Scale world bounds
+		_header.worldBounds.xmin /= _header.scale;
+		_header.worldBounds.xmax /= _header.scale;
+		_header.worldBounds.ymin /= _header.scale;
+		_header.worldBounds.ymax /= _header.scale;
+		_header.worldBounds.zmin /= _header.scale;
+		_header.worldBounds.zmax /= _header.scale;
 	}
 }
 
@@ -359,6 +370,14 @@ void TestCaseReaderPrivate::_parseCameraView(const ticpp::Element * subRoot)
 			throw GenericException("Unexpected tag <" + childTagName + "> found on line " + toString(child->Row()) + "\n");
 		}
 	}
+	// Scale pos and lookat
+	cvi.position.x /= _header.scale;
+	cvi.position.y /= _header.scale;
+	cvi.position.z /= _header.scale;
+
+	cvi.lookat.x /= _header.scale;
+	cvi.lookat.y /= _header.scale;
+	cvi.lookat.z /= _header.scale;
 
 	_cameraViews.push_back(cvi);
 }
@@ -393,6 +412,11 @@ void TestCaseReaderPrivate::_parseAgent(const ticpp::Element * subRoot)
 		}
 	}
 
+	// Scale pos
+	newAgent.position.x /= _header.scale;
+	newAgent.position.y /= _header.scale;
+	newAgent.position.z /= _header.scale;
+
 	_rawAgents.push_back(newAgent);
 }
 
@@ -422,6 +446,11 @@ void TestCaseReaderPrivate::_parseAgentEmitter(const ticpp::Element * subRoot)
 			throw GenericException("Unexpected tag <" + childTagName + "> found on line " + toString(child->Row()) + "\n");
 		}
 	}
+
+	// Scale pos
+	newAgent.position.x /= _header.scale;
+	newAgent.position.y /= _header.scale;
+	newAgent.position.z /= _header.scale;
 
 	_rawAgentEmitters.push_back(newAgent);
 }
@@ -457,6 +486,14 @@ void TestCaseReaderPrivate::_parseAgentRegion(const ticpp::Element * subRoot)
 		}
 	}
 
+	// Scale region bounds
+	newAgent.regionBounds.xmin /= _header.scale;
+	newAgent.regionBounds.xmax /= _header.scale;
+	newAgent.regionBounds.ymin /= _header.scale;
+	newAgent.regionBounds.ymax /= _header.scale;
+	newAgent.regionBounds.zmin /= _header.scale;
+	newAgent.regionBounds.zmax /= _header.scale;
+
 	for (unsigned int i=0; i<numAgents; i++) {
 		_rawAgents.push_back(newAgent);
 	}
@@ -473,6 +510,14 @@ void TestCaseReaderPrivate::_parseBoxObstacle(const ticpp::Element * subRoot)
 	obst->height = 0.0f;
 	obst->regionBounds = _header.worldBounds;
 	obst->size = 0.0f;
+
+	// Scale box
+	obst->obstacleBounds.xmin /= _header.scale;
+	obst->obstacleBounds.xmax /= _header.scale;
+	obst->obstacleBounds.ymin /= _header.scale;
+	obst->obstacleBounds.ymax /= _header.scale;
+	obst->obstacleBounds.zmin /= _header.scale;
+	obst->obstacleBounds.zmax /= _header.scale;
 
 	_rawObstacles.push_back(obst);
 }
@@ -491,6 +536,12 @@ void TestCaseReaderPrivate::_parsePolygonObstacle(const ticpp::Element * subRoot
 		if (childTagName == "vertex") {
 			Util::Point vertex;
 			_getXYZOrRandomFromXMLElement(&(*child), vertex, obst->isObstacleRandom);
+
+			// Scale vertex
+			vertex.x /= _header.scale;
+			vertex.y /= _header.scale;
+			vertex.z /= _header.scale;
+
 			obst->vertices.push_back(vertex);
 		}
 		else {
@@ -534,6 +585,15 @@ void TestCaseReaderPrivate::_parseOrientedBoxObstacle(const ticpp::Element * sub
 		}
 	}
 
+	// Scale pos and size
+	obst->position.x /= _header.scale;
+	obst->position.y /= _header.scale;
+	obst->position.z /= _header.scale;
+
+	obst->size.x /= _header.scale;
+	obst->size.y /= _header.scale;
+	obst->size.z /= _header.scale;
+
 	//obst->obstacleBounds = AxisAlignedBox(obst->position.x-obst->radius, obst->position.x+obst->radius, obst->position.y, obst->position.y+obst->height, obst->position.z-obst->radius, obst->position.z+obst->radius);
 	ObstacleInitialConditions *ic = obst->getObstacleInitialConditions();
 	ObstacleInterface *o = ic->createObstacle();
@@ -572,6 +632,18 @@ void TestCaseReaderPrivate::_parseOrientedWallObstacle(const ticpp::Element * su
 			throw GenericException("Unexpected tag <" + childTagName + "> found on line " + toString(child->Row()) + "\n");
 		}
 	}
+
+	// Scale wall
+	obst->size.x /= _header.scale;
+	obst->size.y /= _header.scale;
+	obst->size.z /= _header.scale;
+
+	obst->position.x /= _header.scale;
+	obst->position.y /= _header.scale;
+	obst->position.z /= _header.scale;
+
+	obst->doorLocation /= _header.scale;
+	obst->doorRadius /= _header.scale;
 
 	//obst->obstacleBounds = AxisAlignedBox(obst->position.x-obst->radius, obst->position.x+obst->radius, obst->position.y, obst->position.y+obst->height, obst->position.z-obst->radius, obst->position.z+obst->radius);
 	ObstacleInitialConditions *ic = obst->getObstacleInitialConditions();
@@ -627,6 +699,15 @@ void TestCaseReaderPrivate::_parseCircleObstacle(const ticpp::Element * subRoot)
 		}
 	}
 
+	// Scale circle obstacle
+	obst->radius /= _header.scale;
+
+	obst->height /= _header.scale;
+
+	obst->position.x /= _header.scale;
+	obst->position.y /= _header.scale;
+	obst->position.z /= _header.scale;
+
 	obst->obstacleBounds = AxisAlignedBox(obst->position.x-obst->radius, obst->position.x+obst->radius, obst->position.y, obst->position.y+obst->height, obst->position.z-obst->radius, obst->position.z+obst->radius);
 
 	// assuming no bugs, these values do not matter when isObstacleRandom==false.
@@ -667,6 +748,18 @@ void TestCaseReaderPrivate::_parseObstacleRegion(const ticpp::Element * subRoot)
 			throw GenericException("Unexpected tag <" + childTagName + "> found on line " + toString(child->Row()) + "\n");
 		}
 	}
+
+	// Scale region
+	obst->size /= _header.scale;
+
+	obst->height /= _header.scale;
+
+	obst->regionBounds.xmin /= _header.scale;
+	obst->regionBounds.xmax /= _header.scale;
+	obst->regionBounds.ymin /= _header.scale;
+	obst->regionBounds.ymax /= _header.scale;
+	obst->regionBounds.zmin /= _header.scale;
+	obst->regionBounds.zmax /= _header.scale;
 
 	for (unsigned int i=0; i<numObstacles; i++) {
 		_rawObstacles.push_back(obst);
@@ -732,6 +825,10 @@ void TestCaseReaderPrivate::_parseGoalSequence(const ticpp::Element * subRoot, s
 
 			if (specName == "targetLocation") {
 				_getXYZOrRandomFromXMLElement(&(*goalSpecs), newGoal.targetLocation, newGoal.targetIsRandom);
+				// Scale loc
+				newGoal.targetLocation.x /= _header.scale;
+				newGoal.targetLocation.y /= _header.scale;
+				newGoal.targetLocation.z /= _header.scale;
 			}
 			else if (specName == "random") {
 				if (goalSpecs->GetText() == "true") {
@@ -756,6 +853,14 @@ void TestCaseReaderPrivate::_parseGoalSequence(const ticpp::Element * subRoot, s
 			else if (specName == "goalRegionBounds")
 			{
 				newGoal.targetRegion = _getBoundsFromXMLElement(&(*goalSpecs));
+
+				// Scale region
+				newGoal.targetRegion.xmin /= _header.scale;
+				newGoal.targetRegion.xmax /= _header.scale;
+				newGoal.targetRegion.ymin /= _header.scale;
+				newGoal.targetRegion.ymax /= _header.scale;
+				newGoal.targetRegion.zmin /= _header.scale;
+				newGoal.targetRegion.zmax /= _header.scale;
 			}
 			else if (specName == "Behaviour")
 			{
