@@ -2,11 +2,22 @@
 
 A Crowd Simulation Research Project by
 - Brian Ricks, Ph.D.
-- Sasan Azizan, MS.
 - Alexander Fuchsberger, MA. MS.
+- Mubbasir Kapadia, Ph.D.
+- Sasan Azizan, MS.
 - David Beavers
 - Jon Hale
 
+## Introduction
+
+This repository is a collection and starting point for the crowd simulation research project.
+In time all these components will be put into their own repositories.
+The node.js plattform is already extracted.
+
+## External components
+Plattform - https://github.com/Sathras/crowdsim
+
+## Instructions
 To clone this repository and allow pulling / pushing
 1. Ensure you have been granted contributor status in https://github.com/Sathras/crowdpipeline
 2. go to an empty folder where you want to have the entire pipeline integrated

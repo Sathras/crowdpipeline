@@ -1,3 +1,0 @@
-{
-  "ignore": ["api/controllers/*", "api/models/*", "api/services/*", "config/locales/*", "assets/*", "tmp/*", "views/*", "node_modules/*"]
-}
